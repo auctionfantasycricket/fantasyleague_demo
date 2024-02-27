@@ -102,18 +102,18 @@ export const NavBar = () => {
               Home
             </Nav.Link>
             <Nav.Link as={Link}
-              to={isLoggedIn ? "/create-team" : "/about"}
+              to={isLoggedIn ? "/players" : "/"}
               className='navbar-link'
               onClick={() => isLoggedIn ? null: handleScrollToSection('about')}>
-              {isLoggedIn ? "Create Team" : "Fantasy Auction"}
+              {isLoggedIn ? "Players List" : "Fantasy Auction"}
             </Nav.Link>
-            <Nav.Link as={Link} className='navbar-link' to="/" onClick={() => handleScrollToSection('league')}>
-              League Setup
+            <Nav.Link as={Link} 
+            to={isLoggedIn ? "/create-team" : "/"}
+            className='navbar-link'
+             onClick={() => isLoggedIn ? null: handleScrollToSection('rules')}>
+              {isLoggedIn ? "Create Team" : "Rules"}
             </Nav.Link>
-            <Nav.Link as={Link} className='navbar-link' to="/" onClick={() => handleScrollToSection('rules')}>
-              Rules
-            </Nav.Link>
-            <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('connect')}>
+            <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
             </Nav.Link>
           </Nav>
@@ -150,18 +150,18 @@ export const NavBar = () => {
               Home
             </Nav.Link>
             <Nav.Link as={Link}
-              to={isLoggedIn ? "/create-team" : "/about"}
+              to={isLoggedIn ? "/players" : "/"}
               className='navbar-link'
-              onClick={() => isLoggedIn ? handleScrollToSection('about') : null}>
-              {isLoggedIn ? "Create Team" : "Fantasy Auction"}
+              onClick={() => isLoggedIn ? null: handleScrollToSection('about')}>
+              {isLoggedIn ? "Players List" : "Fantasy Auction"}
             </Nav.Link>
-            <Nav.Link as={Link} className='navbar-link' to="/" onClick={() => handleScrollToSection('league')}>
-              League Setup
+            <Nav.Link as={Link} 
+            to={isLoggedIn ? "/create-team" : "/"}
+            className='navbar-link'
+             onClick={() => isLoggedIn ? null: handleScrollToSection('rules')}>
+              {isLoggedIn ? "Create Team" : "Rules"}
             </Nav.Link>
-            <Nav.Link as={Link} className='navbar-link' to="/" onClick={() => handleScrollToSection('rules')}>
-              Rules
-            </Nav.Link>
-            <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('connect')}>
+            <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
             </Nav.Link>
               </Nav>
@@ -192,5 +192,14 @@ export const NavBar = () => {
 };
 
 /*<Link to ='/ ' className='navbar-brand' onClick={() => handleScrollToSection('home')}>
+
+
+<Nav.Link as={Link} className='navbar-link' to="/" onClick={() => handleScrollToSection('league')}>
+              League Setup
+            </Nav.Link>
+
+                        <Nav.Link as={Link} className='navbar-link' to="/" onClick={() => handleScrollToSection('rules')}>
+              Rules
+            </Nav.Link>
 
 */

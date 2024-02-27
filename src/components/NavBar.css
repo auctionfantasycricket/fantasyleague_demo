@@ -163,10 +163,17 @@ nav.navbar {
       border-color: transparent;
   }
   
+  /*
+  .navbar .nav-item.dropdown
+  {
+  max-width: 120px;
+
+}*/
+
 
   .offcanvas {
     /* Positioning and dimensions */
-    background-color:rgb(197, 109, 2); /* Adjust background color */
+    background-color:rgb(197, 109, 2)  !important; /* Adjust background color */
     width: 100%; /* Full width on mobile */
     max-width: 320px; /* Optional: Set max-width for larger screens */
     height: 100%; /* Full viewport height */
@@ -187,6 +194,7 @@ nav.navbar {
   
   .offcanvas-body {
     padding: 0px; /* Adjust padding as needed */
+    background-color:rgb(197, 109, 2)  !important; 
   }
   
   /* Media queries for responsive adjustments */
