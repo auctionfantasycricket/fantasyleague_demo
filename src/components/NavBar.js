@@ -80,7 +80,7 @@ export const NavBar = () => {
     dispatch(setLogoutSuccess());
   };
 
-
+/*className={`${scrolled ? "scrolled" : ""} ${isLoggedIn ? "logged" : ""}`}>*/
 
   return (
     <>

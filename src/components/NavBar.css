@@ -11,6 +11,12 @@ nav.navbar {
     background-color: #121212;
   }
 
+  /*
+  nav.navbar.logged {
+    padding: 0px 0;
+    background-color: #121212;
+  }*/
+
   @media screen and (max-width: 768px) {
     nav.navbar span.navbar-brand ,
     nav.navbar span.navbar-brand a.navbar-brand{
