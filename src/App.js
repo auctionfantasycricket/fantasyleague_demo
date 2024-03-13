@@ -22,7 +22,7 @@ function App() {
         <Router>
         <NavBar/>
         <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/efl2024_first" element={<HomePage />} />
         <Route path="/players" element={<AllPlayers />} />
         </Routes>
         </Router>

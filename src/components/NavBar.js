@@ -87,7 +87,7 @@ export const NavBar = () => {
     <Navbar expand="md" className={scrolled ? "scrolled" : ""}>
       <Container>
         <Navbar.Brand>
-        <Link to ='/ ' className='navbar-brand' onClick={() => handleScrollToSection('home')}>
+        <Link to ='/efl2024_first' className='navbar-brand' onClick={() => handleScrollToSection('home')}>
           <img src={logo} alt="Logo" />
           </Link>
         </Navbar.Brand>
@@ -98,22 +98,25 @@ export const NavBar = () => {
         )}
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-          <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('home')}>
+          <Nav.Link as={Link} to="/efl2024_first" className='navbar-link' onClick={() => handleScrollToSection('home')}>
               Home
             </Nav.Link>
+            <Nav.Link as={Link} to="/players" className='navbar-link'>
+              Players List
+            </Nav.Link>
             <Nav.Link as={Link}
-              to={isLoggedIn ? "/players" : "/"}
+              to={isLoggedIn ? "/players" : "/efl2024_first"}
               className='navbar-link'
               onClick={() => isLoggedIn ? null: handleScrollToSection('about')}>
               {isLoggedIn ? "Players List" : "Fantasy Auction"}
             </Nav.Link>
             <Nav.Link as={Link} 
-            to={isLoggedIn ? "/create-team" : "/"}
+            to={isLoggedIn ? "/create-team" : "/efl2024_first"}
             className='navbar-link'
              onClick={() => isLoggedIn ? null: handleScrollToSection('rules')}>
               {isLoggedIn ? "Create Team" : "Rules"}
             </Nav.Link>
-            <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
+            <Nav.Link as={Link} to="/efl2024_first" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
             </Nav.Link>
           </Nav>
@@ -130,7 +133,7 @@ export const NavBar = () => {
                   <NavDropdown.Item onClick={handlelogOut}>Logout</NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <Nav.Link as={Link} to='/'>
+                <Nav.Link as={Link} to='/efl2024_first'>
                   <button className="vvd" onClick={handlelogin}><span>SignIn</span></button>
                 </Nav.Link>
               )}
@@ -146,22 +149,25 @@ export const NavBar = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="ms-auto">
-              <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('home')}>
+              <Nav.Link as={Link} to="/efl2024_first" className='navbar-link' onClick={() => handleScrollToSection('home')}>
               Home
             </Nav.Link>
+            <Nav.Link as={Link} to="/players" className='navbar-link' onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              Players List
+            </Nav.Link>
             <Nav.Link as={Link}
-              to={isLoggedIn ? "/players" : "/"}
+              to={isLoggedIn ? "/players" : "/efl2024_first"}
               className='navbar-link'
               onClick={() => isLoggedIn ? null: handleScrollToSection('about')}>
               {isLoggedIn ? "Players List" : "Fantasy Auction"}
             </Nav.Link>
             <Nav.Link as={Link} 
-            to={isLoggedIn ? "/create-team" : "/"}
+            to={isLoggedIn ? "/create-team" : "/efl2024_first"}
             className='navbar-link'
              onClick={() => isLoggedIn ? null: handleScrollToSection('rules')}>
               {isLoggedIn ? "Create Team" : "Rules"}
             </Nav.Link>
-            <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
+            <Nav.Link as={Link} to="/efl2024_first" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
             </Nav.Link>
               </Nav>
@@ -177,7 +183,7 @@ export const NavBar = () => {
                   <NavDropdown.Item onClick={handlelogOut}>Logout</NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <Nav.Link as={Link} to='/'>
+                <Nav.Link as={Link} to='/efl2024_first'>
                   <button className="vvd" onClick={handlelogin}><span>SignIn</span></button>
                 </Nav.Link>
               )}

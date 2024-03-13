@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo} from "react";
+import React, { useState, useEffect, useMemo, useRef,useCallback} from "react";
 import './Players.css'
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css'
@@ -19,11 +19,12 @@ const fetchPlayerslist = async () => {
   };
 
 
-
 export const AllPlayers = () => {
   const [Allplayers, setAllPlayerslist] = useState([]);
   const [filteredPlayers, setFilteredPlayers] = useState([]);
   const [soldPlayers, setSoldPlayers] = useState([]);
+
+  const gridRef = useRef();
 
 
   const { isLoading, error, data } = useQuery({queryKey:['players'], queryFn:fetchPlayerslist});
@@ -34,8 +35,13 @@ export const AllPlayers = () => {
     }
   }, [data]); 
 
-  if (isLoading) return <div>Loading...</div>;
+  const onBtnExport = useCallback(() => {
+    gridRef.current.api.exportDataAsCsv();
+  }, [gridRef]);
+
+  if (isLoading) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop:'250px' }}>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
+
 
 
   //setAllPlayerslist(data)
@@ -49,19 +55,19 @@ export const AllPlayers = () => {
   };
 
   const columnDefs = [
-    { field: "player_name", headerName: "Name", width: 200, filter: true},
-    { field: "ipl_team_name", headerName: "IPL Team", width: 120, filter: true },
+    { field: "player_name", headerName: "Name", width: 150, filter: true},
+    { field: "ipl_team_name", headerName: "IPL Team", width: 200, filter: true },
    // { field: "status", headerName: "Status", width: 150,filter: true },
     { field: "player_role", headerName: "Role", width: 120, filter: true },
    { field: "country", headerName: "Country", width: 120,filter: true },
-   // { field: "tier", headerName: "Tier", width: 80, filter: true },
+   { field: "tier", headerName: "Tier", width: 80, filter: true },
    // { field: "points", headerName: "Points", width: 95 },
     { field: "ipl_salary", headerName: "Salary", width: 100 },
     { field: "afc_base_salary", headerName: "EFL Base Salary", width: 150 },
-   // { field: "rank", headerName: "Rank",sort:'asc', width: 100 },
+   { field: "rank", headerName: "Rank",sort:'asc', width: 100 },
   ];
 
-  /*
+  
   const getRowStyle = (params) => {
     const tier = params.data.tier;
     switch (tier) {
@@ -78,7 +84,7 @@ export const AllPlayers = () => {
     }
   };
 
-    
+    /*
     const handleFilter = (e) => {
     const value = e.target.value;
     const filtered = soldPlayers.filter((player) =>
@@ -89,22 +95,25 @@ export const AllPlayers = () => {
     setFilteredPlayers(filtered);
     };*/
   
+  
     return (
-      <Container fluid>
-      <Row>
-        <Col>
-          <div className="ag-container">
-            <div className="ag-theme-alpine">
+      <div className ="ag-page">
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',flexDirection:'column' }}>
+        <div style={{backgroundColor:'red',marginTop:'180px'}}>
+          <button onClick={onBtnExport}>Download CSV export file</button>
+        </div>
+            <div className="ag-theme-alpine" style={{height: '69vh',width:"68%"}}>
               <AgGridReact
+                ref={gridRef}
                 rowData={Allplayers}
                 columnDefs={columnDefs}
                 defaultColDef={defaultColDef}
+                getRowStyle={getRowStyle}
+                suppressExcelExport={true}
               />
             </div>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+            </div>
+    </div>
     );
     }
 
