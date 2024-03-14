@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './components/redux/store'
 import { AllPlayers } from './pages/Players';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Auction } from './pages/Auction';
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ function App() {
         <Routes>
         <Route path="/efl2024_first" element={<HomePage />} />
         <Route path="/players" element={<AllPlayers />} />
+        <Route path="/auction" element = {<Auction />}/>
         </Routes>
         </Router>
         </Provider>

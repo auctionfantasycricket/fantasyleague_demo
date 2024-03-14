@@ -116,8 +116,3 @@ export const AllPlayers = () => {
     </div>
     );
     }
-
-    /*
-     <SideBar pagedata={
-        
-     }/>*/
