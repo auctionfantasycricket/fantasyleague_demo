@@ -40,7 +40,10 @@ export const Auction = () => {
     const [isunSold, setIsunSold] = useState(false);
     const [buttonSold, setButtonSold] = useState(true);
     const [buttonunSold, setButtonUnSold] = useState(true);
-
+    const [firstClick,setFirstClick] = useState(true)
+    const [editing, setEditing] = useState(false);
+    const [timer, setTimer] = useState(10)
+    const timerId = useRef()
 
     /*****Getting the Player code *******/
     const [requestedPlayer, setRequestedPlayerChange] = useState("");
@@ -90,10 +93,10 @@ export const Auction = () => {
       const response = await fetch(baseURL+'/get_data?collectionName=efl_ownerTeams_test');
       if(response.ok){
         const json = await response.json();
-        console.log(json)
+        //console.log(json)
         setOwnersData(json)
         const data = json.reduce((acc, curr) => {
-          acc[curr.ownerName] = {maxBid:curr.maxBid,currentPurse: curr.currentPurse};
+          acc[curr.teamName] = {maxBid:curr.maxBid,currentPurse: curr.currentPurse};
           return acc;
       }, {});
       const disableMapTemp = json.reduce((map, curr) => {
@@ -102,7 +105,7 @@ export const Auction = () => {
         // set disable to true
         if(curr.totalCount===settings.squadSize||(curr.fCount===6 && prop !== 'India')||curr.maxBid<amount)
         {
-          map[curr.ownerName]=true;
+          map[curr.teamName]=true;
         }
         return map;
     }, {});
@@ -125,9 +128,110 @@ export const Auction = () => {
     setAmount(json.afc_base_salary);
     setBidder('');
     setSelectedButton(null);
+    setFirstClick(true);
     setRequestedPlayerChange("");
     getOwnersData(json.country);
+    setTimer(10);
+    setFlag(true);
+    setIsSold(false);
+    setIsunSold(false);
+    setButtonSold(false);
+    setButtonUnSold(false);
   }
+
+
+  /*****Bid increament*****/  
+  function increaseAmount(playercountry)
+  {
+    // for the first bid set to base price
+    if(firstClick)
+    {
+      setFirstClick(false)
+      return
+    }
+    let increment = 5;
+    if (amount >= 500)
+    {
+        increment = 50
+    }
+    else if (amount >= 200 && amount < 500)
+    {
+      increment = 20;
+    }else if (amount >= 100 && amount < 200){
+      increment = 10;
+    }
+    setAmount(amount+increment)
+    const disableMapTemp = ownersData.reduce((map, curr) => {
+      if(curr.totalCount===settings.squadSize||(curr.fCount===6 && playercountry !== 'India')||curr.maxBid<amount)
+      {
+        map[curr.ownerName]=true;
+      }
+      return map;
+  }, {});
+  setDisableMap(disableMapTemp);
+  }
+
+  /****Manual Bid ****/
+    const handleDoubleClick = () => {
+        setEditing(true);
+    };
+
+    const handleBlur = () => {
+        setEditing(false);
+    };
+
+    const handleChange = event => {
+        setAmount(parseInt(event.target.value));
+    };
+
+    /*****Timer*****/
+    useEffect(() => {
+        timerId.current = setInterval(() => {
+                setTimer(timer => timer - 1)
+            },1000)
+            return () => clearInterval(timerId.current)
+        }, [timer])
+
+    useEffect(() =>{
+        if (timer <= 0) {
+            clearInterval(timerId.current)
+        }
+    }, [timer])
+
+    /***Handle sold and unsold***/
+
+    const handleSoldClick = (inStatus,inBidder,inAmount) => {
+
+        const payload = { ownerTeam: inBidder , status: inStatus, boughtFor: inAmount, player_role: getPlayer.player_role, country: getPlayer.country};
+        //console.log(inStatus,inBidder,inAmount)
+        if (inStatus === 'sold')
+        {
+            setIsSold(true)
+            setButtonSold(true)
+        }
+        else
+        {
+            setIsunSold(true)
+            setButtonUnSold(true)
+        }
+        //console.log(payload)
+        fetch(baseURL+'/updateplayer/'+getPlayer._id.$oid, {
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+        setFlag(false)
+        }
+    
 
   return (
     <div className='auctionpage'>
@@ -147,15 +251,26 @@ export const Auction = () => {
          country={getPlayer.country} 
          type={getPlayer.player_role} 
          franchise={getPlayer.ipl_team_name}/>
-         </div>
+         
+        {isSold && <div style={{color:"red", fontSize:"40px",marginTop:"-60px"}}>SOLD</div>}
+        {isunSold && <div style={{color:"gray", fontSize:"40px",marginTop:"-60px"}}>UNSOLD</div>}
+        </div>
          </Row>
          <Row className='itemsbottomrow'>
         <Col>
          <div className="text-boxes-container">
          <p style={{marginTop:"15px",marginRight:"20px"}} className='shiny-text'> Current Bidder: {bidder}</p>
-         <p style={{marginTop:"15px",marginRight:"20px"}} className="shiny-text">
+         {editing ? (
+        <input
+          type="text"
+          value={amount}
+          onBlur={handleBlur}
+          onChange={handleChange}
+        />
+      ) :(
+         <p style={{marginTop:"15px",marginRight:"20px"}} className="shiny-text" onDoubleClick={handleDoubleClick}>
           BID: {amount} lacs
-        </p>
+        </p>)}
 
         <p style={{marginTop:"15px",marginRight:"20px"}} className='shiny-text'>Current Purse:{ownerToMaxBid[bidder]?.currentPurse} lacs</p>
          <p style={{marginTop:"15px",marginRight:"20px"}} className='shiny-text'>Max Bid: {ownerToMaxBid[bidder]?.maxBid} lacs</p>
@@ -164,13 +279,16 @@ export const Auction = () => {
         </Col>
         <Col>
         <div className="timer-container">
-        {/* Timer component here */}
+        <div style={{color: timer <= '5' ? 'red':'black' }}>
+        {isflag &&(
+          <div className="time-text show">Time Remaining: {timer}</div>) }
+      </div>
         </div>
         </Col>
         <Col>
         <div className='buttons-container'>
-        <button className="action-button" >Mark Sold</button>
-      <button className="action-button" >Mark Unsold</button>
+        <button className="action-button" onClick={()=>handleSoldClick('sold', bidder, amount)} disabled={buttonSold}>Mark Sold</button>
+      <button className="action-button" onClick={()=>handleSoldClick('unsold-processed','',0)} disabled={buttonunSold}>Mark Unsold</button>
         </div>
         </Col>
         </Row>
@@ -183,7 +301,7 @@ export const Auction = () => {
         <div key={index} className="team-button-containers">
           <img src={require('../assets/images/auction_hand.png')} alt="my-image" className="my-image" style={{ display: selectedButton === index ? 'block' : 'none'}}/>
           <button id= {text} disabled={disableMap[text]} onClick={() => {setSelectedButton(index)
-          setBidder(text)}} >{text}</button>
+          setBidder(text);increaseAmount(getPlayer.country);setTimer(10);}} >{text}</button>
          </div>
       ))}
         </Col>

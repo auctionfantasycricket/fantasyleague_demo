@@ -54,6 +54,7 @@
     flex: 1;
   }
 
+
   .auctionpage .auctioncontainer .autiontoprow .itemsbottomrow {
     flex: 0 0 auto; /* Reset flex value for the bottom row */
   }
@@ -72,7 +73,7 @@
     padding: 10px;
     border-radius: 10px; /* rounded edges */
     text-align: center; /* center align text */
-    font-size: 24px; /* large font size */
+    font-size: 18px; /* large font size */
     font-weight: bold; /* bold text */
     text-shadow: 2px 2px #ffb347; /* adds a subtle shadow to text */
     box-shadow: 0 0 10px #f5b183; /* adds a shiny effect to the background */
@@ -92,6 +93,8 @@
   .auctionpage .auctioncontainer .autiontoprow .timer-container {
     margin-top: 15px;
     flex: 1;
+    font-size: 20px;
+    font-weight: bold;
   }
 
 

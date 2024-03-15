@@ -104,20 +104,17 @@ export const NavBar = () => {
             <Nav.Link as={Link} to="/players" className='navbar-link'>
               Players List
             </Nav.Link>
-            <Nav.Link as={Link} to="/auction" className='navbar-link'>
-              Auction
-            </Nav.Link>
             <Nav.Link as={Link}
-              to={isLoggedIn ? "/players" : "/efl2024_first"}
+              to={isLoggedIn ? "/auction" : "/efl2024_first"}
               className='navbar-link'
               onClick={() => isLoggedIn ? null: handleScrollToSection('about')}>
-              {isLoggedIn ? "Players List" : "Fantasy Auction"}
+              {isLoggedIn ? "Auction" : "Fantasy Auction"}
             </Nav.Link>
             <Nav.Link as={Link} 
-            to={isLoggedIn ? "/create-team" : "/efl2024_first"}
+            to={isLoggedIn ? "/manageteam" : "/efl2024_first"}
             className='navbar-link'
              onClick={() => isLoggedIn ? null: handleScrollToSection('rules')}>
-              {isLoggedIn ? "Create Team" : "Rules"}
+              {isLoggedIn ? "Manage Team" : "Rules"}
             </Nav.Link>
             <Nav.Link as={Link} to="/efl2024_first" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
@@ -159,16 +156,16 @@ export const NavBar = () => {
               Players List
             </Nav.Link>
             <Nav.Link as={Link}
-              to={isLoggedIn ? "/players" : "/efl2024_first"}
+              to={isLoggedIn ? "/auction" : "/efl2024_first"}
               className='navbar-link'
               onClick={() => isLoggedIn ? null: handleScrollToSection('about')}>
-              {isLoggedIn ? "Players List" : "Fantasy Auction"}
+              {isLoggedIn ? "Auction" : "Fantasy Auction"}
             </Nav.Link>
             <Nav.Link as={Link} 
-            to={isLoggedIn ? "/create-team" : "/efl2024_first"}
+            to={isLoggedIn ? "/manageteam" : "/efl2024_first"}
             className='navbar-link'
              onClick={() => isLoggedIn ? null: handleScrollToSection('rules')}>
-              {isLoggedIn ? "Create Team" : "Rules"}
+              {isLoggedIn ? "Manage Team" : "Rules"}
             </Nav.Link>
             <Nav.Link as={Link} to="/efl2024_first" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
