@@ -13,6 +13,7 @@
     "ag-grid-community": "^31.1.1",
     "ag-grid-react": "^31.1.1",
     "animate.css": "^4.1.1",
+    "antd": "^5.15.2",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
     "react": "^18.2.0",

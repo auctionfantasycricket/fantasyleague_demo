@@ -93,7 +93,7 @@
   .auctionpage .auctioncontainer .autiontoprow .timer-container {
     margin-top: 15px;
     flex: 1;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
   }
 
@@ -155,13 +155,13 @@
     background: linear-gradient(to bottom, #ff7f00, #ff5500);
     border-radius: 10px;
     color: white;
-    font-size: 18px;
-    padding: 10px 20px;
+    font-size: 15px;
+    padding: 10px 15px;
     border: none;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 9px;
     position: relative;
-    height: 75px;
+    height: 70px;
     margin-top: 15px;
 
   }

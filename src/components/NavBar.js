@@ -5,7 +5,7 @@ import navIcon1 from '../assets/images/nav-icon1.svg';
 import navIcon2 from '../assets/images/nav-icon2.svg';
 import navIcon3 from '../assets/images/nav-icon3.svg';
 import './NavBar.css'
-import { Link, BrowserRouter as Router } from "react-router-dom";
+import { Link, BrowserRouter as Router, useNavigate } from "react-router-dom";
 import { FaTimes } from 'react-icons/fa';
 import {useGoogleLogin, googleLogout} from '@react-oauth/google';
 import axios from "axios"
@@ -20,6 +20,8 @@ export const NavBar = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const userProfile = useSelector((state) => state.login.userProfile);
+
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -78,6 +80,7 @@ export const NavBar = () => {
   const handlelogOut = () => {
     googleLogout();
     dispatch(setLogoutSuccess());
+    navigate('/efl2024_first')
   };
 
 /*className={`${scrolled ? "scrolled" : ""} ${isLoggedIn ? "logged" : ""}`}>*/
@@ -111,10 +114,10 @@ export const NavBar = () => {
               {isLoggedIn ? "Auction" : "Fantasy Auction"}
             </Nav.Link>
             <Nav.Link as={Link} 
-            to={isLoggedIn ? "/manageteam" : "/efl2024_first"}
+            to={isLoggedIn ? "/manageteam" : "/teams"}
             className='navbar-link'
-             onClick={() => isLoggedIn ? null: handleScrollToSection('rules')}>
-              {isLoggedIn ? "Manage Team" : "Rules"}
+             onClick={() => isLoggedIn ? null: null}>
+              {isLoggedIn ? "Manage Team" : "Teams"}
             </Nav.Link>
             <Nav.Link as={Link} to="/efl2024_first" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us

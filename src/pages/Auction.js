@@ -284,12 +284,10 @@ export const Auction = () => {
           <div className="time-text show">Time Remaining: {timer}</div>) }
       </div>
         </div>
-        </Col>
-        <Col>
         <div className='buttons-container'>
         <button className="action-button" onClick={()=>handleSoldClick('sold', bidder, amount)} disabled={buttonSold}>Mark Sold</button>
       <button className="action-button" onClick={()=>handleSoldClick('unsold-processed','',0)} disabled={buttonunSold}>Mark Unsold</button>
-        </div>
+      </div>
         </Col>
         </Row>
         </Col>
