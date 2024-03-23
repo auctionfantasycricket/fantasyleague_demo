@@ -165,10 +165,10 @@ export const NavBar = () => {
               {isLoggedIn ? "Auction" : "Fantasy Auction"}
             </Nav.Link>
             <Nav.Link as={Link} 
-            to={isLoggedIn ? "/manageteam" : "/efl2024_first"}
+            to={isLoggedIn ? "/manageteam" : "/teams"}
             className='navbar-link'
-             onClick={() => isLoggedIn ? null: handleScrollToSection('rules')}>
-              {isLoggedIn ? "Manage Team" : "Rules"}
+             onClick={() => isLoggedIn ? setIsMenuOpen(!isMenuOpen): setIsMenuOpen(!isMenuOpen)}>
+              {isLoggedIn ? "Manage Team" : "Teams"}
             </Nav.Link>
             <Nav.Link as={Link} to="/efl2024_first" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
