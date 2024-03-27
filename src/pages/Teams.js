@@ -31,7 +31,7 @@ export default function Teams() {
         const response = await fetch(baseURL+'/get_data?collectionName=efl_playersCentral_test');
         if(response.ok){
           const playerdata = await response.json();
-          console.log(playerdata)
+          //console.log(playerdata)
           setPlayerslist(playerdata.filter((item) => item.status === 'sold'));
           console.log(Playerslist)
         } else {
@@ -131,7 +131,7 @@ export default function Teams() {
   return(
     <div className="teampage">
     <div className="teampagecontainer">
-      <div className="ag-theme-alpine-dark" style={ {height:"77vh",width:"82vw"} }>
+      <div className="ag-theme-alpine-dark" style={ {height:"72vh",width:"82vw"} }>
     <AgGridReact
     rowData={data}
     columnDefs={columnDefs}
@@ -140,9 +140,9 @@ export default function Teams() {
     />
      </div>
      <div>
-      <Modal title={teamname + " players"} style={{ top: 160, width: 700 }} open={isModalOpen} onOk={handleOk} onCancel={handleOk} bodyStyle={{ background: '#1f1f1f', color: '#fff' }} cancelButtonProps={{ style: { display: 'none' } }}>
+      <Modal title={teamname + " players"} style={{ top: 30, width: 700, zIndex:9999 }} open={isModalOpen} onOk={handleOk} onCancel={handleOk} cancelButtonProps={{ style: { display: 'none' } }}>
       {
-          <div className="ag-theme-alpine" style={ {height:"60vh"} }>
+          <div className="ag-theme-alpine" style={ {height:"72vh"} }>
           <AgGridReact
           rowData={showplayers}
           columnDefs={playerColumns}

@@ -6,18 +6,18 @@
   height: 100vh;
 }
 
-/*
-.ag-container {
+.ag-page .ag-container {
   margin-top: 160px;
-  margin-left: 10px;
-  margin-right: -20px;
+  margin-left: 10px 20px;
   margin-bottom: -160px;
   background: #d5c4c4;
   width: 100%;
-  height: 100%;
-  display: grid;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
   border-radius: 10px;
-}*/
+  align-items: center;
+}
 
 
 /* Adjust margin to create space below the navbar */

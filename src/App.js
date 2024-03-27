@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Routes, HashRouter} from 'react-router-dom'
 import { NavBar } from './components/NavBar';
 import HomePage from './pages/HomePage';
 import { Provider } from 'react-redux';
@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Auction } from './pages/Auction';
 import { ManageTeam } from './pages/ManageTeam';
 import Teams from './pages/Teams';
+import TeamPoints from './pages/TeamPoints';
 
 const queryClient = new QueryClient();
 
@@ -22,16 +23,17 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
         
-        <Router>
+        <HashRouter>
         <NavBar/>
         <Routes>
-        <Route path="/efl2024_first" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/players" element={<AllPlayers />} />
         <Route path="/auction" element = {<Auction />}/>
         <Route path="/manageteam" element = {<ManageTeam />}/>
         <Route path="/teams" element = {<Teams />}/>
+        <Route path ="/teampoints" element = {<TeamPoints />} />
         </Routes>
-        </Router>
+        </HashRouter>
         </Provider>
         </QueryClientProvider>
       </div>

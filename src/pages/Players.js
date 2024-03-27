@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 const fetchPlayerslist = async () => {
-    const response = await fetch(baseURL+'/get_data?collectionName=playersCentral');
+    const response = await fetch(baseURL+'/get_data?collectionName=efl_playersCentral_test');
     if (!response.ok) {
       throw new Error('Failed to fetch data');
     }
@@ -46,7 +46,7 @@ export const AllPlayers = () => {
 
   //setAllPlayerslist(data)
 
-  console.log(Allplayers)
+  //console.log(Allplayers)
 
   const defaultColDef = {
     sortable: true,
@@ -57,7 +57,7 @@ export const AllPlayers = () => {
   const columnDefs = [
     { field: "player_name", headerName: "Name", width: 150, filter: true},
     { field: "ipl_team_name", headerName: "IPL Team", width: 200, filter: true },
-   // { field: "status", headerName: "Status", width: 150,filter: true },
+    { field: "status", headerName: "Status", width: 150,filter: true },
     { field: "player_role", headerName: "Role", width: 120, filter: true },
    { field: "country", headerName: "Country", width: 120,filter: true },
    { field: "tier", headerName: "Tier", width: 80, filter: true },
@@ -93,16 +93,18 @@ export const AllPlayers = () => {
     player.role.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredPlayers(filtered);
-    };*/
+    };
+    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',flexDirection:'column' }}
+    */
   
   
     return (
       <div className ="ag-page">
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',flexDirection:'column' }}>
-        <div style={{backgroundColor:'red',marginTop:'180px'}}>
+        <div className="ag-container">
+        <div style={{backgroundColor:'red'}}>
           <button onClick={onBtnExport}>Download CSV export file</button>
         </div>
-            <div className="ag-theme-alpine" style={{height: '69vh',width:"68%"}}>
+            <div className="ag-theme-alpine" style={{height: '71vh',width:"95%"}}>
               <AgGridReact
                 ref={gridRef}
                 rowData={Allplayers}
