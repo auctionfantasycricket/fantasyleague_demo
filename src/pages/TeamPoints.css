@@ -18,6 +18,22 @@
   align-items: center;
   }
 
+  .teampointspage .teampointscontainer .ant-breadcrumb-link{
+    display: flex;
+    justify-content: left;
+    font-weight: bold;
+    color: rgb(130, 5, 248);
+    margin-bottom: -10px;
+  }
+
+  .teampointspage .teampointscontainer .breadcrumb .breadcrumbitem{
+    display: flex;
+    justify-content:start;
+    justify-items:start;
+    font-weight: bold;
+    color: red;
+  }
+
   .teampointspage .teampointscontainer .ant-modal {
     width: 690px;
 

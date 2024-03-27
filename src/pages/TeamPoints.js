@@ -3,7 +3,7 @@ import "./TeamPoints.css";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import { Modal, Popover } from "antd";
+import { Modal, Popover, Breadcrumb } from "antd";
 import { useQuery } from '@tanstack/react-query';
 
 
@@ -27,6 +27,13 @@ const getallplayerslist = async () => {
   };
 
 
+  const gettimestamp = async () => {
+    const response = await fetch(baseURL+'/get_data?collectionName=global_data');
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    return response.json();
+  };
 
 export default function TeamPoints() {
   const [Playersownerslist, setPlayerownersslist] = useState([]);
@@ -37,6 +44,7 @@ export default function TeamPoints() {
   const [popovercontent, setPopoverContent] = useState(null);
   const [popoverVisible, setPopoverVisible] = useState(false);
   const [popoverPosition, setPopoverPosition] = useState({});
+  const [timsestamps, setTimestamps] = useState([]);
 
   //const baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -64,6 +72,17 @@ export default function TeamPoints() {
   }, [playerdata]); 
 
 
+  const { isLoading: isLoadingTS, error: errorTS, data: timsestamp } = useQuery({ queryKey: ['timestamp'], queryFn: gettimestamp });
+
+  //console.log("NOP",stats)
+
+  useEffect(() => {
+    if (timsestamp) {
+        setTimestamps(timsestamp);
+    }
+  }, [timsestamp]); 
+
+
 
   if (isLoadingTeams || isLoadingPlayers) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop:'250px' }}>Loading...</div>;
   if (errorPlayers||errorTeams) return <div>Error: {errorPlayers.message}</div>;
@@ -71,6 +90,7 @@ export default function TeamPoints() {
 
  
   if (Teamsstats.length === 0) return <div>Loading teams data...</div>;
+
 
 /*
   useEffect(() => {
@@ -238,6 +258,9 @@ export default function TeamPoints() {
   return (
     <div className="teampointspage">
       <div className="teampointscontainer">
+      {timsestamps[0] &&
+      <Breadcrumb className="breadcrumb" items={[{title:'Points Updated On '+timsestamps[0].pointsUpdatedAt}]}/>
+      }
         {Teamsstats &&
         <div className="ag-theme-alpine-dark" style={{ height: "70vh", width: "87vw" }}>
           <AgGridReact
