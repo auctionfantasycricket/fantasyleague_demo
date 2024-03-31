@@ -61,7 +61,8 @@ export const AllPlayers = () => {
     { field: "player_role", headerName: "Role", width: 120, filter: true },
    { field: "country", headerName: "Country", width: 120,filter: true },
    { field: "tier", headerName: "Tier", width: 80, filter: true },
-   // { field: "points", headerName: "Points", width: 95 },
+    { field: "ownerTeam", headerName: "Owner", width: 95 },
+    { field: "boughtFor", headerName: "BoughtFor", width: 95 },
     { field: "ipl_salary", headerName: "Salary", width: 100 },
     { field: "afc_base_salary", headerName: "EFL Base Salary", width: 150 },
    { field: "rank", headerName: "Rank",sort:'asc', width: 100 },
@@ -101,7 +102,7 @@ export const AllPlayers = () => {
     return (
       <div className ="ag-page">
         <div className="ag-container">
-        <div style={{backgroundColor:'red'}}>
+        <div style={{backgroundColor:'red',marginTop:'10px'}}>
           <button onClick={onBtnExport}>Download CSV export file</button>
         </div>
             <div className="ag-theme-alpine" style={{height: '71vh',width:"95%"}}>

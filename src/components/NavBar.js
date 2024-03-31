@@ -119,6 +119,9 @@ export const NavBar = () => {
              onClick={() => isLoggedIn ? null: null}>
               {isLoggedIn ? "Manage Team" : "Team Points"}
             </Nav.Link>
+            <Nav.Link as={Link} to="/linegraph" className='navbar-link' onClick={() => null}>
+              Team Rank
+            </Nav.Link>
             <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
             </Nav.Link>
@@ -169,6 +172,9 @@ export const NavBar = () => {
             className='navbar-link'
              onClick={() => isLoggedIn ? setIsMenuOpen(!isMenuOpen): setIsMenuOpen(!isMenuOpen)}>
               {isLoggedIn ? "Manage Team" : "Team Points"}
+            </Nav.Link>
+            <Nav.Link as={Link} to="/linegraph" className='navbar-link' onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              Team Rank
             </Nav.Link>
             <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
