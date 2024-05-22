@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import {BrowserRouter as Router, Route, Routes, HashRouter} from 'react-router-dom'
+import {Route, Routes, HashRouter} from 'react-router-dom'
 import { NavBar } from './components/NavBar';
 import HomePage from './pages/HomePage';
 import { Provider } from 'react-redux';
@@ -12,6 +12,7 @@ import { ManageTeam } from './pages/ManageTeam';
 import Teams from './pages/Teams';
 import TeamPoints from './pages/TeamPoints';
 import { Linegraph } from './pages/Linegraph';
+import { WaiverSystem } from './pages/WaiverSystem';
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/teams" element = {<Teams />}/>
         <Route path ="/teampoints" element = {<TeamPoints />} />
         <Route path ="/linegraph" element = {<Linegraph />} />
+        <Route path="/waiver" element = {<WaiverSystem/>} />
         </Routes>
         </HashRouter>
         </Provider>
