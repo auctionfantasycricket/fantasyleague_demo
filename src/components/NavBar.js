@@ -122,6 +122,9 @@ export const NavBar = () => {
             <Nav.Link as={Link} to="/linegraph" className='navbar-link' onClick={() => null}>
               Team Rank
             </Nav.Link>
+            <Nav.Link as={Link} to="/waiver" className='navbar-link' onClick={() => null}>
+              Waiver
+            </Nav.Link>
             <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
             </Nav.Link>
@@ -175,6 +178,9 @@ export const NavBar = () => {
             </Nav.Link>
             <Nav.Link as={Link} to="/linegraph" className='navbar-link' onClick={() => setIsMenuOpen(!isMenuOpen)}>
               Team Rank
+            </Nav.Link>
+            <Nav.Link as={Link} to="/waiver" className='navbar-link' onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              Waiver
             </Nav.Link>
             <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
