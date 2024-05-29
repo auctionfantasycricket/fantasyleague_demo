@@ -156,6 +156,7 @@ export default function TeamPoints() {
       tcc[teams.teamName] = {
         totalPoints: teams.totalPoints,
         todayPoints: teams.todayPoints,
+        transferdata: teams.transferHistory,
       };
     }
     return tcc;
@@ -169,11 +170,12 @@ export default function TeamPoints() {
       teamName: teamName,
       totalpoint: teamtotalpoints[teamName].totalPoints,
       todaypoints: teamtotalpoints[teamName].todayPoints,
+      transferdetails: teamtotalpoints[teamName].transferdata,
       players: players,
     };
     data.push(team);
   }
-  //console.log("ABC",playerdata)
+  //console.log("ABC",data)
   
 
 
@@ -271,6 +273,16 @@ export default function TeamPoints() {
               { field: "teamName", headerName: "Team Name", width: 180 },
               { field: "totalpoint", headerName: "Points", width: 100, sort: "desc" },
               { field: "todaypoints", headerName: "TodayPoints", width: 100 },
+              {
+                field: "transferdetails",
+                headerName: "Exodus Points",
+                width:100,
+                cellRenderer: (params) => {
+                  const transferHistory = params.data.transferdetails;
+                  const totalPoints = transferHistory.reduce((acc, item) => acc + item.points, 0);
+                  return totalPoints;
+                },
+              },
             ]}
           />
         </div>}

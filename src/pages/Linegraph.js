@@ -262,11 +262,11 @@ export const Linegraph = () => {
       <Breadcrumb className="breadcrumb" items={[{title:'Standing Updated At '+timsestamps[0].rankingsUpdatedAt}]}/>
       }
         {isPortrait ? (
-           <div className="chart" style={{height:"72vh",overflowX:"auto",aspectRatio:1}}>
+           <div className="chart" style={{height:"77vh",overflowX:"auto",aspectRatio:1}}>
            {chartData && <Line data={chartData} options={options} />}
        </div>
         ):(
-        <div className="chart" style={{height:"72vh",overflowX:"auto",aspectRatio:1.8}}>
+        <div className="chart" style={{height:"77vh",overflowX:"auto",aspectRatio:1.8}}>
             {chartData && <Line data={chartData} options={options} />}
         </div>)}
         </div>

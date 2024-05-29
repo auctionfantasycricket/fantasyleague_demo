@@ -9,7 +9,7 @@ export default function OwnerStats(props) {
         maxHeight: '10px',
         fontSize: '6px',
         border: '1px solid black',
-        maxWidth :'600px'
+        maxWidth :'620px'
       },
     },
     headCells: {
@@ -77,9 +77,9 @@ export default function OwnerStats(props) {
     {
       name: 'Sq('+settings.squadSize+')',
       selector: row=> row.totalCount,
-      width:'60px',
+      width:'80px',
       cell: row => <div style={{ backgroundColor: row.totalCount >= settings.squadSize ? 'lightgreen' : 'white',textAlign:'center', padding: '4px',width: '50%',
-      height: '50%' }}>{row.totalCount}</div>,
+      height: '80%' }}>{row.totalCount}</div>,
     },
     {
       name: 'Purse',

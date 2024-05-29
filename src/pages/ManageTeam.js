@@ -67,11 +67,40 @@ export const ManageTeam = ()=> {
                      console.error(error);
                    });
            };
+
+           const Dropplayer =() =>{
+            const dropplayer = delplayer
+            //const payload = { ownerTeam: deleteplayer[0].ownerTeam ,status: "unsold",boughtFor:deleteplayer[0].boughtFor,player_role:deleteplayer[0].player_role,country:deleteplayer[0].country};
+            const payload ={}
+            fetch(baseURL+'/dropplayer/'+dropplayer[0]._id.$oid, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(payload)
+                })
+                
+                .then(response => response.json())
+                .then(data => {
+                 console.log(data);
+                 //window.location.reload()
+                 setPlayer(player.filter((p) => p._id.$oid !== dropplayer[0]._id.$oid)); 
+               })
+                .catch(error => {
+                  console.error(error);
+                });
+        };
        
            return (
+            <>
                <button type="button" className="action-button" key="delete" onClick={Deleteplayer} style={{ backgroundColor: 'red' }}>
                    Delete
                </button>
+              
+               <button type="button" className="action-button" key="drop" onClick={Dropplayer} style={{ backgroundColor: 'green' }}>
+               Drop Player
+           </button>
+           </>
            );
        }, [delplayer, player]);
        
