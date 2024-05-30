@@ -13,6 +13,7 @@ import Teams from './pages/Teams';
 import TeamPoints from './pages/TeamPoints';
 import { Linegraph } from './pages/Linegraph';
 import { WaiverSystem } from './pages/WaiverSystem';
+import SnakeDraft from './pages/Snakedraft';
 
 const queryClient = new QueryClient();
 
@@ -34,7 +35,7 @@ function App() {
         <Route path="/manageteam" element = {<ManageTeam />}/>
         <Route path="/teams" element = {<Teams />}/>
         <Route path ="/teampoints" element = {<TeamPoints />} />
-        <Route path ="/linegraph" element = {<Linegraph />} />
+        <Route path ="/linegraph" element = {<SnakeDraft />} />
         <Route path="/waiver" element = {<WaiverSystem/>} />
         </Routes>
         </HashRouter>

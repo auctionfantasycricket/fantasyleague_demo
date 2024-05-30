@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 const fetchPlayerslist = async () => {
-    const response = await fetch(baseURL+'/get_data?collectionName=efl_playersCentral_test');
+    const response = await fetch(baseURL+'/get_data?collectionName=eflDraft_playersCentral');
     if (!response.ok) {
       throw new Error('Failed to fetch data');
     }
@@ -55,31 +55,63 @@ export const AllPlayers = () => {
   };
 
   const columnDefs = [
-    { field: "player_name", headerName: "Name", width: 150, filter: true},
-    { field: "ipl_team_name", headerName: "IPL Team", width: 200, filter: true },
-    { field: "status", headerName: "Status", width: 150,filter: true },
-    { field: "player_role", headerName: "Role", width: 120, filter: true },
-   { field: "country", headerName: "Country", width: 120,filter: true },
-   { field: "tier", headerName: "Tier", width: 80, filter: true },
-    { field: "ownerTeam", headerName: "Owner", width: 95 },
-    { field: "boughtFor", headerName: "BoughtFor", width: 95 },
-    { field: "ipl_salary", headerName: "Salary", width: 100 },
-    { field: "afc_base_salary", headerName: "EFL Base Salary", width: 150 },
-   { field: "rank", headerName: "Rank",sort:'asc', width: 100 },
+    { field: "player_name", headerName: "Name", width: 250, filter: true},
+    //{ field: "ipl_team_name", headerName: "IPL Team", width: 200, filter: true },
+    //{ field: "status", headerName: "Status", width: 150,filter: true },
+    { field: "player_role", headerName: "Role", width: 200, filter: true },
+   { field: "country", headerName: "Country", width: 220,filter: true,sort:'asc'},
+   //{ field: "tier", headerName: "Tier", width: 80, filter: true },
+    //{ field: "ownerTeam", headerName: "Owner", width: 95 },
+    //{ field: "boughtFor", headerName: "BoughtFor", width: 95 },
+    //{ field: "ipl_salary", headerName: "Salary", width: 100 },
+    //{ field: "afc_base_salary", headerName: "EFL Base Salary", width: 150 },
+   //{ field: "rank", headerName: "Rank",sort:'asc', width: 100 },
   ];
 
   
   const getRowStyle = (params) => {
-    const tier = params.data.tier;
-    switch (tier) {
-      case 1:
-        return { backgroundColor: "lightgreen" };
-      case 2:
+    const country = params.data.country;
+    switch (country) {
+      case 'Afghanistan':
+        return { backgroundColor: "lightsteelblue" };
+      case 'Australia':
+        return { backgroundColor: "gold" };
+      case 'Bangladesh':
+        return { backgroundColor: "forestgreen" };
+      case 'Canada':
+        return { backgroundColor: "firebrick" };
+      case 'England':
+        return { backgroundColor: "deepskyblue" };
+      case 'India':
+        return { backgroundColor: "dodgerblue" };
+      case 'Ireland':
+        return { backgroundColor: "limegreen" };
+      case 'Namibia':
+        return { backgroundColor: "cornflowerblue" };
+      case 'Nepal':
         return { backgroundColor: "lightblue" };
-      case 3:
+      case 'Netherlands':
         return { backgroundColor: "orange" };
-      case 4:
+      case 'New-zealand':
+        return { backgroundColor: "lightgrey" };
+      case 'Oman':
+        return { backgroundColor: "tomato" };
+      case 'Pakistan':
+        return { backgroundColor: "green" };
+      case 'Papua-new-guinea':
         return { backgroundColor: "lightpink" };
+      case 'Scotland':
+        return { backgroundColor: "skyblue" };
+      case 'South-africa':
+        return { backgroundColor: "lightgreen" };
+      case 'Sri-lanka':
+        return { backgroundColor: "royalblue" };
+      case 'Uganda':
+        return { backgroundColor: "yellow" };
+      case 'United-states-of-america':
+        return { backgroundColor: "steelblue" };
+      case 'West-indies':
+        return { backgroundColor: "indianred" };
       default:
         return null;
     }
