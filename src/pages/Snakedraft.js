@@ -44,7 +44,7 @@ const SnakeDraft = () => {
     const formatDraftBoard = (draftBoard) => {
         let draftData = [];
         for (let round = 0; round < rounds; round++) {
-          let row = { round: `Round ${round + 1}` };
+          let row = { round: `R ${round + 1} ${round % 2 === 0 ? '➡️' : '⬅️'}`  };
           teams.forEach((team, index) => {
             const teamData = draftBoard.find(t => t.teamName === team);
             row[`team${index}`] = teamData ? teamData.draftSequence[round] || '' : '';
@@ -83,7 +83,7 @@ const SnakeDraft = () => {
                 const response = await fetch(`${baseURL}/getspecificplayer?playerName=${searchQuery}`);
                 if (response.ok) {
                     const json = await response.json();
-                    setSearchResult(json.player_name || 'Player not found');
+                    setSearchResult(`${json.player_name} | ${json.player_role} | ${json.country}` || 'Player not found');
                     setDraftplayer(json);
                 } else {
                     console.log('Error:', response.status);
@@ -96,7 +96,7 @@ const SnakeDraft = () => {
                 const response = await fetch(`${baseURL}/getrandomdraftplayer`);
                 if (response.ok) {
                     const json = await response.json();
-                    setSearchResult(json.player_name || 'Player not found');
+                    setSearchResult(`${json.player_name} | ${json.player_role} | ${json.country}` || 'Player not found');
                     setDraftplayer(json);
                 } else {
                     console.log('Error:', response.status);

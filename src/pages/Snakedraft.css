@@ -104,5 +104,6 @@ h1 {
     padding: 1rem;
     border: 1px solid black;
     border-radius: 10px;
-    width: 250px;
+    width: 445px;
+    text-align: center;
 }
