@@ -18,6 +18,8 @@ const SnakeDraft = () => {
     const [selectedCell, setSelectedCell] = useState(null);
     const [playertodraft, setDraftplayer] = useState(null);
     const [ownersData, setOwnersData] = useState();
+    const [showControls, setShowControls] = useState(false); // Set to true if you want to show by default
+
     const gridRef = useRef();
 
     useEffect(() => {
@@ -159,14 +161,18 @@ const SnakeDraft = () => {
     return (
         <div className='snakepage'>
             <div className="snakecontainer">
-                <h1>Snake Draft</h1>
-                <div className="timer" id="timer" style={{ color: timer <= '10' ? 'red' : 'black' }}>{timer}</div>
-                <div className="controls">
-                    <input type="text" id="searchBox" placeholder="Search for a player" />
-                    <button onClick={searchPlayer}>Search</button>
-                    <button onClick={draftPlayer}>Draft</button>
-                </div>
-                <div className="card" id="card">{searchResult}</div>
+            {showControls && (
+                    <>
+                        <h1>Snake Draft</h1>
+                        <div className="timer" id="timer" style={{ color: timer <= '10' ? 'red' : 'black' }}>{timer}</div>
+                        <div className="controls">
+                            <input type="text" id="searchBox" placeholder="Search for a player" />
+                            <button onClick={searchPlayer}>Search</button>
+                            <button onClick={draftPlayer}>Draft</button>
+                        </div>
+                        <div className="card" id="card">{searchResult}</div>
+                    </>
+                )}
                 <Row className="tablecontainer">
                     <Col className="main-content">
                         <div className="ag-theme-alpine">

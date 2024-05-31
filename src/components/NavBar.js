@@ -119,6 +119,9 @@ export const NavBar = () => {
              onClick={() => isLoggedIn ? null: null}>
               {isLoggedIn ? "Manage Team" : "Team Points"}
             </Nav.Link>
+            <Nav.Link as={Link} to="/draft" className='navbar-link' onClick={() => null}>
+              Draft
+            </Nav.Link>
             <Nav.Link as={Link} to="/linegraph" className='navbar-link' onClick={() => null}>
               Team Rank
             </Nav.Link>
@@ -169,6 +172,9 @@ export const NavBar = () => {
               className='navbar-link'
               onClick={() => isLoggedIn ? null: setIsMenuOpen(!isMenuOpen)}>
               {isLoggedIn ? "Draft" : "Teams"}
+            </Nav.Link>
+            <Nav.Link as={Link} to="/draft" className='navbar-link' onClick={() => null}>
+              Draft
             </Nav.Link>
             <Nav.Link as={Link} 
             to={isLoggedIn ? "/manageteam" : "/teampoints"}

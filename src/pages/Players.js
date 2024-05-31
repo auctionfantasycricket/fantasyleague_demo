@@ -57,7 +57,7 @@ export const AllPlayers = () => {
   const columnDefs = [
     { field: "player_name", headerName: "Name", width: 250, filter: true},
     //{ field: "ipl_team_name", headerName: "IPL Team", width: 200, filter: true },
-    //{ field: "status", headerName: "Status", width: 150,filter: true },
+    { field: "status", headerName: "Status", width: 150,filter: true },
     { field: "player_role", headerName: "Role", width: 200, filter: true },
    { field: "country", headerName: "Country", width: 220,filter: true,sort:'asc'},
    //{ field: "tier", headerName: "Tier", width: 80, filter: true },
