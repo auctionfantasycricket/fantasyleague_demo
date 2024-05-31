@@ -28,8 +28,8 @@
 
   .teampointspage .teampointscontainer .breadcrumb .breadcrumbitem{
     display: flex;
-    justify-content:start;
-    justify-items:start;
+    justify-content:center;
+    justify-items:center;
     font-weight: bold;
     color: red;
   }

@@ -74,7 +74,7 @@ body {
   .drop-input:last-child {
     margin-right: 0;
   }
-  
+  /*
   button {
     padding: 10px 20px;
     background-color: #4CAF50;
@@ -87,5 +87,5 @@ body {
   
   button:hover {
     background-color: #45a049;
-  }
+  }*/
   
