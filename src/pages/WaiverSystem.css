@@ -1,61 +1,91 @@
-.waiver-system {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+body {
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
   }
   
-  .teams-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
+  .waiver-system {
+    width: 100%;
+    max-width: 500px;
+    margin: 100px auto 0; /* Adjust the top margin to move the form down */
+    padding: 20px;
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .waiver-system h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .waiver-system h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+  
+  .preference-section,
+  .drop-section {
     margin-bottom: 20px;
   }
   
-  .team-section {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
+  .preference-input,
+  .drop-input {
+    margin-bottom: 15px;
+    text-align: left;
   }
   
-  .preference-section {
-    display: flex;
-    justify-content: space-between;
+  label {
+    display: block;
     margin-bottom: 5px;
+    font-weight: bold;
   }
   
-  .preference-section input {
+  input[type="text"],
+  select {
     width: 100%;
-    padding: 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: #333;
+    color: white;
+  }
+  
+  input[type="text"]::placeholder,
+  select {
+    color: #999;
+  }
+  
+  .drop-input-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .drop-input {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .drop-input:last-child {
+    margin-right: 0;
   }
   
   button {
     padding: 10px 20px;
-    font-size: 16px;
-    margin-top: 20px;
-    cursor: pointer;
-    background-color: #007BFF;
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
   }
   
-  .results-section {
-    display: flex; /* Added to display results horizontally */
-    justify-content: center; /* Added to center results horizontally */
-    margin-top: 20px;
-  }
-  
-  .team-results {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
+  button:hover {
+    background-color: #45a049;
   }
   
