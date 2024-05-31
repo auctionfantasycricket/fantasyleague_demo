@@ -108,10 +108,10 @@ export const NavBar = () => {
               Players List
             </Nav.Link>
             <Nav.Link as={Link}
-              to={isLoggedIn ? "/auction" : "/teams"}
+              to={isLoggedIn ? "/draft" : "/teams"}
               className='navbar-link'
               onClick={() => isLoggedIn ? null: null}>
-              {isLoggedIn ? "Auction" : "Teams"}
+              {isLoggedIn ? "Draft" : "Teams"}
             </Nav.Link>
             <Nav.Link as={Link} 
             to={isLoggedIn ? "/manageteam" : "/teampoints"}
@@ -165,10 +165,10 @@ export const NavBar = () => {
               Players List
             </Nav.Link>
             <Nav.Link as={Link}
-              to={isLoggedIn ? "/auction" : "/teams"}
+              to={isLoggedIn ? "/draft" : "/teams"}
               className='navbar-link'
               onClick={() => isLoggedIn ? null: setIsMenuOpen(!isMenuOpen)}>
-              {isLoggedIn ? "Auction" : "Teams"}
+              {isLoggedIn ? "Draft" : "Teams"}
             </Nav.Link>
             <Nav.Link as={Link} 
             to={isLoggedIn ? "/manageteam" : "/teampoints"}
