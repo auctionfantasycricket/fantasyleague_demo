@@ -67,7 +67,7 @@ export const NavBar = () => {
                 }
             })
 
-            console.log(res.data)
+            //console.log(res.data)
             dispatch(setLoginSuccess(res.data));
         } catch (err) {
             console.log(err)
@@ -80,7 +80,8 @@ export const NavBar = () => {
   const handlelogOut = () => {
     googleLogout();
     dispatch(setLogoutSuccess());
-    navigate('/efl2024_first')
+    //navigate('/efl2024_first')
+    navigate('/')
   };
 
 /*className={`${scrolled ? "scrolled" : ""} ${isLoggedIn ? "logged" : ""}`}>*/
@@ -107,11 +108,8 @@ export const NavBar = () => {
             <Nav.Link as={Link} to="/players" className='navbar-link'>
               Players List
             </Nav.Link>
-            <Nav.Link as={Link}
-              to={isLoggedIn ? "/draft" : "/teams"}
-              className='navbar-link'
-              onClick={() => isLoggedIn ? null: null}>
-              {isLoggedIn ? "Draft" : "Teams"}
+            <Nav.Link as={Link} to="/teams" className='navbar-link' onClick={() => null}>
+            Teams
             </Nav.Link>
             <Nav.Link as={Link} 
             to={isLoggedIn ? "/manageteam" : "/teampoints"}
@@ -119,14 +117,14 @@ export const NavBar = () => {
              onClick={() => isLoggedIn ? null: null}>
               {isLoggedIn ? "Manage Team" : "Team Points"}
             </Nav.Link>
-            <Nav.Link as={Link} to="/draft" className='navbar-link' onClick={() => null}>
-              Draft
+            <Nav.Link as={Link}
+              to={isLoggedIn ? "/waiver":"/draft"}
+              className='navbar-link'
+              onClick={() => isLoggedIn ? null: null}>
+              {isLoggedIn ? "Waivers": "Draft Results" }
             </Nav.Link>
             <Nav.Link as={Link} to="/linegraph" className='navbar-link' onClick={() => null}>
               Team Rank
-            </Nav.Link>
-            <Nav.Link as={Link} to="/waiver" className='navbar-link' onClick={() => null}>
-              Waiver
             </Nav.Link>
             <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us
@@ -167,14 +165,8 @@ export const NavBar = () => {
             <Nav.Link as={Link} to="/players" className='navbar-link' onClick={() => setIsMenuOpen(!isMenuOpen)}>
               Players List
             </Nav.Link>
-            <Nav.Link as={Link}
-              to={isLoggedIn ? "/draft" : "/teams"}
-              className='navbar-link'
-              onClick={() => isLoggedIn ? null: setIsMenuOpen(!isMenuOpen)}>
-              {isLoggedIn ? "Draft" : "Teams"}
-            </Nav.Link>
-            <Nav.Link as={Link} to="/draft" className='navbar-link' onClick={() => null}>
-              Draft
+            <Nav.Link as={Link} to="/teams" className='navbar-link' onClick={() => null}>
+            Teams
             </Nav.Link>
             <Nav.Link as={Link} 
             to={isLoggedIn ? "/manageteam" : "/teampoints"}
@@ -182,11 +174,14 @@ export const NavBar = () => {
              onClick={() => isLoggedIn ? setIsMenuOpen(!isMenuOpen): setIsMenuOpen(!isMenuOpen)}>
               {isLoggedIn ? "Manage Team" : "Team Points"}
             </Nav.Link>
+            <Nav.Link as={Link}
+              to={isLoggedIn ? "/waiver":"/draft"}
+              className='navbar-link'
+              onClick={() => isLoggedIn ? setIsMenuOpen(!isMenuOpen): setIsMenuOpen(!isMenuOpen)}>
+              {isLoggedIn ? "Waivers": "Draft Results" }
+            </Nav.Link>
             <Nav.Link as={Link} to="/linegraph" className='navbar-link' onClick={() => setIsMenuOpen(!isMenuOpen)}>
               Team Rank
-            </Nav.Link>
-            <Nav.Link as={Link} to="/waiver" className='navbar-link' onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              Waiver
             </Nav.Link>
             <Nav.Link as={Link} to="/" className='navbar-link' onClick={() => handleScrollToSection('contact')}>
               Contact Us

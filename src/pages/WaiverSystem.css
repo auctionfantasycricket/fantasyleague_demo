@@ -1,34 +1,37 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: white;
-  }
+.waiverpage {
+    margin-top: 0;
+    padding: 10px 0 0px 0;
+    background: linear-gradient(90.21deg, rgba(21, 18, 97, 0.5) -5.91%, rgba(0, 34, 81, 0.5) 111.58%);
+    height: 100vh;
+}
   
-  .waiver-system {
+.waiverpage .waiversystem {
+    margin-top: 160px;
+    margin-left: 10px 20px;
+    margin-bottom: -160px;
+    background: #d5c4c4;
     width: 100%;
-    max-width: 500px;
-    margin: 100px auto 0; /* Adjust the top margin to move the form down */
-    padding: 20px;
-    background-color: #1c1c1c;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    align-items: center;
   }
   
-  .waiver-system h1 {
+  .waiverpage .waiversystem h1 {
     margin-bottom: 20px;
     font-size: 24px;
   }
   
-  .waiver-system h2 {
+  .waiverpage .waiversystem h2 {
     margin-bottom: 15px;
     font-size: 20px;
+    color: black;
   }
-  
-  .preference-section,
-  .drop-section {
+
+
+  .waiverpage .waiversystem .preference-section,
+  .waiverpage .waiversystem .drop-section {
     margin-bottom: 20px;
   }
   
@@ -38,14 +41,27 @@ body {
     text-align: left;
   }
   
-  label {
+  .waiverpage .waiversystem .preference-section label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    color: black;
   }
-  
-  input[type="text"],
-  select {
+
+  .waiverpage .waiversystem .drop-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: black;
+  }
+
+  .ant-select .ant-select-selection-placeholder {
+    color: red; /* Change this to the desired color */
+    font-weight: bold; /* Optional: Make the placeholder text bold */
+  }
+
+  /*
+  .waiverpage .waiversystem .preference-section Select {
     width: 100%;
     padding: 10px;
     margin-bottom: 5px;
@@ -56,10 +72,21 @@ body {
     color: white;
   }
   
+  .waiverpage .waiversystem .drop-section Select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+  }*/
+  /*
   input[type="text"]::placeholder,
   select {
     color: #999;
-  }
+  }*/
   
   .drop-input-container {
     display: flex;
@@ -74,18 +101,21 @@ body {
   .drop-input:last-child {
     margin-right: 0;
   }
-  /*
-  button {
+  
+ 
+.waiverpage .waiversystem button{
+    border-radius: 5px;
+    margin-bottom: 5px;
+    margin: 5px;
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-  }
-  
-  button:hover {
+}
+
+.waiverpage .waiversystem button:hover {
     background-color: #45a049;
-  }*/
+}
   
