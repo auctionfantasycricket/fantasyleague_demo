@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './WaiverSystem.css';
 import { useQuery } from '@tanstack/react-query';
-import { Select } from 'antd';
+import { Select, Table } from 'antd';
 import { useSelector } from 'react-redux';
 import { encryptData,decryptData } from '../components/Encryption';
-
+import { Container, Row, Col } from 'react-bootstrap';
 
 
 const baseURL = process.env.REACT_APP_BASE_URL;
@@ -19,7 +19,9 @@ const fetchPlayerslist = async () => {
 
 export const WaiverSystem = () => {
   const [preferences, setPreferences] = useState(['', '', '', '']);
+  const [encryptpreferences, setEncryptPreferences] = useState(['', '', '', '']);
   const [drops, setDrops] = useState(['', '']);
+  const [encryptdrops, setEncryptDrops] = useState(['', '']);
   const [soldPlayers, setSoldPlayers] = useState([]);
   const [unsoldPlayers, setUnSoldPlayers] = useState([]);
   const [Teamswaiver, setTeamswaiver] = useState([])
@@ -45,6 +47,7 @@ export const WaiverSystem = () => {
         if (response.ok) {
           const stats = await response.json();
           setTeamswaiver(stats);
+          console.log("kgf",stats)
           handledecrypt(stats.currentWaiver.in, "pref");
           handledecrypt(stats.currentWaiver.out, "drop");
         } else {
@@ -64,10 +67,12 @@ export const WaiverSystem = () => {
   const handledecrypt = (val, opt) => {
     if (opt === "pref") {
       const newPreferences = val.map(item => decryptData(item));
+      setEncryptPreferences(val)
       setPreferences(newPreferences);
     } else if (opt === "drop") {
       const newDrops = val.map(item => decryptData(item));
       setDrops(newDrops);
+      setEncryptDrops(val);
     }
   };
 
@@ -91,22 +96,32 @@ export const WaiverSystem = () => {
 
   const handlePreferenceChange = (index, value) => {
     const newPreferences = [...preferences];
+    const newEncryptPreferences = [...encryptpreferences]
     const encryptedprefvalue = encryptData(value)
-    newPreferences[index] = encryptedprefvalue;
+    newPreferences[index] = value;
+    newEncryptPreferences[index] = encryptedprefvalue
+    setEncryptPreferences(newEncryptPreferences)
     setPreferences(newPreferences);
   };
 
   const handleDropChange = (index, value) => {
+    if (drops.includes(value)) {
+      alert('This player is already selected for drop. Please choose a different player.');
+      return;
+    }
     const newDrops = [...drops];
+    const newEncryptedDrops = [...encryptdrops];
     const encrypteddropvalue = encryptData(value)
-    newDrops[index] = encrypteddropvalue;
+    newDrops[index] = value;
+    newEncryptedDrops[index] = encrypteddropvalue;
     setDrops(newDrops);
+    setEncryptDrops(newEncryptedDrops)
   };
 
   const handleSubmit = () => {
     const payload = {  "currentWaiver": {
-      "in": preferences,
-      "out": drops
+      "in": encryptpreferences,
+      "out": encryptdrops
     } };
     
     fetch(`${baseURL}/updateCurrentWaiver/${useremail}`, {
@@ -127,11 +142,71 @@ export const WaiverSystem = () => {
     alert('Your waivers saved successfully!!The selection will be locked on Tuesday at 11:59 pm');
   };
 
+  const handleclear = (index, opt) =>{
+    if (opt==="pref"){
+      const newPreferences = [...preferences];
+      newPreferences[index] = '';
+      const newEncryptPreferences = [...encryptpreferences] 
+      newEncryptPreferences[index] = '';
+      setPreferences(newPreferences);
+      setEncryptPreferences(newEncryptPreferences);
+    }else if(opt === "drop"){
+      const newDrops = [...drops];
+      const newEncryptedDrops = [...encryptdrops];
+      newDrops[index] = '';
+      newEncryptedDrops[index] = '';
+      setDrops(newDrops);
+      setEncryptDrops(newEncryptedDrops)
+    }
+  }
+
+  const dataSource = [
+    {
+      key: '1',
+      preference: '1',
+      picks: 'Aaron Jones',
+      result: 'picked',
+      reason:'',
+    },
+    {
+      key: '2',
+      preference: '1',
+      picks: 'Adam',
+      result: 'picked',
+      reason:'',
+    },
+  ];
+  
+  const columns = [
+    {
+      title: 'Preference',
+      dataIndex: 'preference',
+      key: 'preference',
+    },
+    {
+      title: 'Picks',
+      dataIndex: 'picks',
+      key: 'picks',
+    },
+    {
+      title: 'Result',
+      dataIndex: 'result',
+      key: 'result',
+    },
+    {
+      title: 'Reason',
+      dataIndex: 'reason',
+      key: 'reason',
+    },
+  ];
+
 
   return (
     <div className="waiverpage">
     <div className="waiversystem">
       <h1>Waivers for {teamname}</h1>
+      <Row className="tablecontainer">
+        <Col className="main-content">
       <div className="preference-section">
         <h2>Preferences</h2>
         {preferences.map((preference, index) => (
@@ -139,9 +214,11 @@ export const WaiverSystem = () => {
             <label>Preference {index + 1}</label>
             <Select
               showSearch
-              style={{width:300,border:"1px solid black",borderRadius:"5px",color:"black"}}
+              allowClear="true"
+              style={{width:300,minHeight:40,border:"1px solid black",borderRadius:"5px",color:"black"}}
               placeholder={preference?preference:"Search Player to Select"}
               optionFilterProp="children"
+              onClear={() => handleclear(index,"pref")}
               onChange={(value) => handlePreferenceChange(index, value)}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
               filterSort={(optionA, optionB) =>
@@ -151,24 +228,35 @@ export const WaiverSystem = () => {
           </div>
         ))}
       </div>
+      </Col>
+      <Col className="sidebar">
       <div className="drop-section">
         <h2>Drops</h2>
-        <div className="drop-input-container">
           {drops.map((drop, index) => (
             <div key={index} className="drop-input">
               <label>Drop {index + 1}</label>
               <Select
                 placeholder={drop?drop:"Search Player to drop"}
-                style={{width:250,border:"1px solid black",borderRadius:"5px",color:"black"}}
+                allowClear="true"
+                style={{width:300,minHeight:40,border:"1px solid black",borderRadius:"5px",color:"black"}}
                 optionFilterProp="children"
+                onClear={() => handleclear(index,"drop")}
                 onChange={(value) => handleDropChange(index, value)}
                 options ={transformedsoldPlayers}
               />
             </div>
           ))}
-        </div>
       </div>
       <button onClick={handleSubmit}>Submit</button>
+      </Col>
+      <Col className="logbar">
+      <div className='waiver-results'>
+        <h2>Results</h2>
+
+<Table dataSource={dataSource} columns={columns} />;
+      </div>
+      </Col>
+      </Row>
     </div>
     </div>
   );

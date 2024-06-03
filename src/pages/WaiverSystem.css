@@ -7,7 +7,7 @@
   
 .waiverpage .waiversystem {
     margin-top: 160px;
-    margin-left: 10px 20px;
+    margin-left: 10px 15px;
     margin-bottom: -160px;
     background: #d5c4c4;
     width: 100%;
@@ -16,6 +16,7 @@
     flex-direction: column;
     border-radius: 10px;
     align-items: center;
+    overflow-y: auto;
   }
   
   .waiverpage .waiversystem h1 {
@@ -33,6 +34,7 @@
   .waiverpage .waiversystem .preference-section,
   .waiverpage .waiversystem .drop-section {
     margin-bottom: 20px;
+    
   }
   
   .preference-input,
@@ -58,6 +60,12 @@
   .ant-select .ant-select-selection-placeholder {
     color: red; /* Change this to the desired color */
     font-weight: bold; /* Optional: Make the placeholder text bold */
+  }
+
+  
+  .ant-select .ant-select-clear {
+    color: red; 
+    font-size: large
   }
 
   /*
@@ -88,11 +96,6 @@
     color: #999;
   }*/
   
-  .drop-input-container {
-    display: flex;
-    justify-content: space-between;
-  }
-  
   .drop-input {
     flex: 1;
     margin-right: 10px;
@@ -119,3 +122,26 @@
     background-color: #45a049;
 }
   
+.waiverpage .waiversystem .main-content {
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.waiverpage .waiversystem .sidebar {
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+}
+
+.waiverpage .waiversystem .logbar {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+}
