@@ -17,6 +17,14 @@ const fetchPlayerslist = async () => {
   return response.json();
 };
 
+const fetchTeamInfo = async (useremail) => {
+  const response = await fetch(`${baseURL}/getTeamOwnerByEmail/${useremail}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch team info');
+  }
+  return response.json();
+};
+
 export const WaiverSystem = () => {
   const [preferences, setPreferences] = useState(['', '', '', '']);
   const [encryptpreferences, setEncryptPreferences] = useState(['', '', '', '']);
@@ -25,6 +33,8 @@ export const WaiverSystem = () => {
   const [soldPlayers, setSoldPlayers] = useState([]);
   const [unsoldPlayers, setUnSoldPlayers] = useState([]);
   const [Teamswaiver, setTeamswaiver] = useState([])
+  const [lastupdatedby, setLastupdatedby] = useState('')
+  const [lastupdatedat, setLastupdatedat] = useState('')
  
   const userProfile = useSelector((state) => state.login.userProfile);
   const useremail = userProfile ? userProfile.email : '';
@@ -40,6 +50,7 @@ export const WaiverSystem = () => {
     }
   }, [data]); 
 
+  /*
   useEffect(() => {
     async function getteaminfo() {
       try {
@@ -47,9 +58,10 @@ export const WaiverSystem = () => {
         if (response.ok) {
           const stats = await response.json();
           setTeamswaiver(stats);
-          console.log("kgf",stats)
           handledecrypt(stats.currentWaiver.in, "pref");
           handledecrypt(stats.currentWaiver.out, "drop");
+          setLastupdatedby(stats.currentWaiver.lastUpdatedBy)
+          setLastupdatedat(stats.currentWaiver.lastUpdatedTime)
         } else {
           console.log('Error: ' + response.status + response.body);
         }
@@ -61,7 +73,26 @@ export const WaiverSystem = () => {
     if (useremail) {
       getteaminfo();
     }
+  }, [useremail]);*/
+
+  useEffect(() => {
+    if (useremail) {
+      getTeamInfo(useremail);
+    }
   }, [useremail]);
+
+  const getTeamInfo = async (email) => {
+    try {
+      const stats = await fetchTeamInfo(email);
+      setTeamswaiver(stats);
+      handledecrypt(stats.currentWaiver.in, "pref");
+      handledecrypt(stats.currentWaiver.out, "drop");
+      setLastupdatedby(stats.currentWaiver.lastUpdatedBy);
+      setLastupdatedat(stats.currentWaiver.lastUpdatedTime);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
   const handledecrypt = (val, opt) => {
@@ -107,7 +138,6 @@ export const WaiverSystem = () => {
   const handleDropChange = (index, value) => {
     if (drops.includes(value)) {
       alert('This player is already selected for drop. Please choose a different player.');
-      return;
     }
     const newDrops = [...drops];
     const newEncryptedDrops = [...encryptdrops];
@@ -119,6 +149,11 @@ export const WaiverSystem = () => {
   };
 
   const handleSubmit = () => {
+    const uniquedrops = new Set(drops)
+    if (uniquedrops.size !== drops.length){
+      alert('You cant drop sameplayer for both picks');
+      return;
+    }
     const payload = {  "currentWaiver": {
       "in": encryptpreferences,
       "out": encryptdrops
@@ -140,6 +175,7 @@ export const WaiverSystem = () => {
         });
 
     alert('Your waivers saved successfully!!The selection will be locked on Tuesday at 11:59 pm');
+    getTeamInfo(useremail);
   };
 
   const handleclear = (index, opt) =>{
@@ -248,6 +284,10 @@ export const WaiverSystem = () => {
           ))}
       </div>
       <button onClick={handleSubmit}>Submit</button>
+      <div>
+      {lastupdatedby && <h3>Last updated by {lastupdatedby}</h3>}
+      {lastupdatedat && <h4>Last updated at {lastupdatedat}</h4>}
+      </div>
       </Col>
       <Col className="logbar">
       <div className='waiver-results'>
