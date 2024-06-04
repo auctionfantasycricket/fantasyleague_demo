@@ -25,8 +25,11 @@ export const encryptData = (data) => {
   if (data === null || data === undefined || data === '') {
     return '';
   }
+  /*
   const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
   return ciphertext;
+  */
+  return btoa(data)
 };
 
 // Decrypt data
@@ -35,9 +38,12 @@ export const decryptData = (ciphertext) => {
     return '';
   }
   try {
+    /*
     const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
     const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     return decryptedData;
+    */
+    return atob(ciphertext)
   } catch (error) {
     console.error('Error decrypting data:', error);
     return '';
