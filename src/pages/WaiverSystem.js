@@ -25,6 +25,14 @@ const fetchTeamInfo = async (useremail) => {
   return response.json();
 };
 
+const getwaiverresults = async () => {
+  const response = await fetch(baseURL+'/get_data?collectionName=global_data');
+  if (!response.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  return response.json();
+};
+
 export const WaiverSystem = () => {
   const [preferences, setPreferences] = useState(['', '', '', '']);
   const [encryptpreferences, setEncryptPreferences] = useState(['', '', '', '']);
@@ -35,6 +43,9 @@ export const WaiverSystem = () => {
   const [Teamswaiver, setTeamswaiver] = useState([])
   const [lastupdatedby, setLastupdatedby] = useState('')
   const [lastupdatedat, setLastupdatedat] = useState('')
+  const [allglobaldata, setAllGlobalData] = useState([]);
+  const [waiverresults, setWaiverResults] = useState([]);
+  const [showSubmitbutton, setshowSubmitbutton] = useState(false);
  
   const userProfile = useSelector((state) => state.login.userProfile);
   const useremail = userProfile ? userProfile.email : '';
@@ -106,6 +117,17 @@ export const WaiverSystem = () => {
       setEncryptDrops(val);
     }
   };
+
+  const { isLoading: isLoadingWR, error: errorWR, data: waivers } = useQuery({ queryKey: ['timestamp'], queryFn: getwaiverresults });
+
+  //console.log("NOP",waivers)
+
+  useEffect(() => {
+    if (waivers && waivers.length > 0) {
+      setWaiverResults(waivers[0].waiverResults);
+    }
+  }, [waivers]);
+
 
   if (isLoading) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop:'250px' }}>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -196,33 +218,26 @@ export const WaiverSystem = () => {
     }
   }
 
-  const dataSource = [
-    {
-      key: '1',
-      preference: '1',
-      picks: 'Aaron Jones',
-      result: 'picked',
-      reason:'',
-    },
-    {
-      key: '2',
-      preference: '1',
-      picks: 'Adam',
-      result: 'picked',
-      reason:'',
-    },
-  ];
+  const transformedData = waiverresults.flatMap(entry => 
+    entry.picks.map((pick, index) => ({
+      key: `${entry.pref}-${index}`,
+      pref: entry.pref,
+      pick,
+      result: entry.result[index],
+      reason: entry.reason[index]
+    }))
+  );
   
   const columns = [
     {
       title: 'Preference',
-      dataIndex: 'preference',
+      dataIndex: 'pref',
       key: 'preference',
     },
     {
-      title: 'Picks',
-      dataIndex: 'picks',
-      key: 'picks',
+      title: 'Pick',
+      dataIndex: 'pick',
+      key: 'pick',
     },
     {
       title: 'Result',
@@ -283,7 +298,7 @@ export const WaiverSystem = () => {
             </div>
           ))}
       </div>
-      <button onClick={handleSubmit}>Submit</button>
+      {showSubmitbutton && <button onClick={handleSubmit}>Submit</button>}
       <div>
       {lastupdatedby && <h3>Last updated by {lastupdatedby}</h3>}
       {lastupdatedat && <h4>Last updated at {lastupdatedat}</h4>}
@@ -293,7 +308,13 @@ export const WaiverSystem = () => {
       <div className='waiver-results'>
         <h2>Results</h2>
 
-<Table dataSource={dataSource} columns={columns} />;
+        <Table 
+          dataSource={transformedData} 
+          columns={columns}
+          pagination={{ pageSize: 6 }}
+          bordered
+          size='small'
+        />;
       </div>
       </Col>
       </Row>

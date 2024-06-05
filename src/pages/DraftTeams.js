@@ -4,6 +4,17 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { Modal } from 'antd';
+import { useQuery } from '@tanstack/react-query';
+
+const baseURL = process.env.REACT_APP_BASE_URL;
+
+const getallplayerslist = async () => {
+  const response = await fetch(baseURL+'/get_data?collectionName=eflDraft_playersCentral');
+  if (!response.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  return response.json();
+};
 
 export default function DraftTeams() {
   const [Playerslist, setPlayerslist] = useState([]);
@@ -16,8 +27,23 @@ export default function DraftTeams() {
 
   const containerStyle = useMemo(() => ({ width: '100%', height: '100%' }), []);
 
-  const baseURL = process.env.REACT_APP_BASE_URL;
 
+  const { isLoading: isLoadingPlayers, error: errorPlayers, data: playerdata } = useQuery({ queryKey: ['players'], queryFn: getallplayerslist });
+
+  //console.log("KLM",playerdata)
+
+  useEffect(() => {
+    if (playerdata) {
+      setPlayerslist(
+            playerdata.filter((item) => item.status === "sold")
+          );
+    }
+  }, [playerdata]); 
+
+  if (isLoadingPlayers) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop:'250px' }}>Loading...</div>;
+  if (errorPlayers) return <div>Error: {errorPlayers.message}</div>;
+
+/*
   useEffect(() => {
     async function getallteamdetails() {
       try {
@@ -46,7 +72,21 @@ export default function DraftTeams() {
     }, []);
   };
 
-  const teamMapping = mapTeamNameToDraftSequence(Teamsstats);
+  const teamMapping = mapTeamNameToDraftSequence(Teamsstats);*/
+
+
+  const teamsData = Playerslist.reduce((acc, player) => {
+    if (!acc[player.ownerTeam]) {
+      acc[player.ownerTeam] = [];
+    }
+    acc[player.ownerTeam].push({ name: player.player_name, role: player.player_role, country: player.country,});
+    return acc;
+  }, {});
+
+  const teamMapping = Object.keys(teamsData).map(teamName => ({
+    teamName,
+    players: teamsData[teamName]
+  }));
 
   //console.log("map", teamMapping);
 
@@ -67,7 +107,8 @@ export default function DraftTeams() {
         // handle row selection
         const selectedRow = event.node.data;
         setSelectedteamname(selectedRow.teamName);
-        setShowPlayers(selectedRow.draftSequence.map(name => ({ name }))); // assuming draftSequence contains player details
+        //setShowPlayers(selectedRow.draftSequence.map(name => ({ name }))); // assuming draftSequence contains player details
+        setShowPlayers(selectedRow.players)
         setIsModalOpen(true);
       }
     }
@@ -79,6 +120,8 @@ export default function DraftTeams() {
 
   const playerColumns = [
     { headerName: 'Name', field: 'name' },
+    { headerName: 'Country', field: 'country',width:100},
+    { headerName: 'Role', field: 'role',width:100},
   ];
 
   return (
