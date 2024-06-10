@@ -20,7 +20,7 @@ Chart.register(
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 const getallownerslist = async () => {
-    const response = await fetch(baseURL+'/get_data?collectionName=efl_ownerTeams_test');
+    const response = await fetch(baseURL+'/get_data?collectionName=eflDraft_ownerTeams');
     if (!response.ok) {
         throw new Error('Failed to fetch data');
     }
@@ -209,7 +209,7 @@ export const Linegraph = () => {
                     curve: 'smooth',
                     borderColor: "rgba(255, 159, 64, 0.5)",
                     backgroundColor: "rgba(255, 159, 64, 0.5)"
-                },
+                }/*,
                 {
                     label: team7.teamName,
                     data: team7.standings,
@@ -239,7 +239,7 @@ export const Linegraph = () => {
                 curve: 'smooth',
                 borderColor: "rgba(150, 25, 32, 0.5)",
                 backgroundColor: "rgba(150, 25, 32, 0.5)"
-            }
+            }*/
             ];
             const data = { labels, datasets };
             
