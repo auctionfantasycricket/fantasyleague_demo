@@ -5,7 +5,7 @@ import { Select, Table } from 'antd';
 import { useSelector } from 'react-redux';
 import { encryptData,decryptData } from '../components/Encryption';
 import { Container, Row, Col } from 'react-bootstrap';
-import sachin from '../assets/images/sachin.gif'
+import waiver_results from '../assets/images/waiver_results.gif'
 
 
 const baseURL = process.env.REACT_APP_BASE_URL;
@@ -46,7 +46,7 @@ export const WaiverSystem = () => {
   const [lastupdatedat, setLastupdatedat] = useState('')
   const [allglobaldata, setAllGlobalData] = useState([]);
   const [waiverresults, setWaiverResults] = useState([]);
-  const [showSubmitbutton, setshowSubmitbutton] = useState(true);
+  const [showSubmitbutton, setshowSubmitbutton] = useState(false);
  
   const userProfile = useSelector((state) => state.login.userProfile);
   const useremail = userProfile ? userProfile.email : '';
@@ -318,7 +318,7 @@ export const WaiverSystem = () => {
         />;
       </div>
       <div className="gif-container">
-      <img src={sachin} alt="Example GIF" className="gif" />
+      <img src={waiver_results} alt="Example GIF" className="gif" />
     </div>
       </Col>
       </Row>
