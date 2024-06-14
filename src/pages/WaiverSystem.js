@@ -46,7 +46,7 @@ export const WaiverSystem = () => {
   const [lastupdatedat, setLastupdatedat] = useState('')
   const [allglobaldata, setAllGlobalData] = useState([]);
   const [waiverresults, setWaiverResults] = useState([]);
-  const [showSubmitbutton, setshowSubmitbutton] = useState(false);
+  const [showSubmitbutton, setshowSubmitbutton] = useState(true);
  
   const userProfile = useSelector((state) => state.login.userProfile);
   const useremail = userProfile ? userProfile.email : '';
