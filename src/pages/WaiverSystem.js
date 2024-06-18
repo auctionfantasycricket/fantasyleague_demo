@@ -51,13 +51,15 @@ export const WaiverSystem = () => {
   const userProfile = useSelector((state) => state.login.userProfile);
   const useremail = userProfile ? userProfile.email : '';
   //const useremail ="saksharhere@gmail.com"
+
+  const playoffteams = ['Afghanistan','Australia','Bangladesh','England','India','South-africa','United-states-of-america','West-indies']
   
 
   const { isLoading, error, data } = useQuery({queryKey:['players'], queryFn:fetchPlayerslist});
 
   useEffect(() => {
     if (data) {
-      setUnSoldPlayers(data.filter((item) => item.status !== 'sold'));
+      setUnSoldPlayers(data.filter((item) => item.status !== 'sold' && playoffteams.includes(item.country)));
       setSoldPlayers(data.filter((item) => item.status === 'sold'));
     }
   }, [data]); 
