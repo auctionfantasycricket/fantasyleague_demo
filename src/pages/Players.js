@@ -26,12 +26,13 @@ export const AllPlayers = () => {
 
   const gridRef = useRef();
 
+  const playoffteams = ['Afghanistan','Australia','Bangladesh','England','India','South-africa','United-states-of-america','West-indies']
 
   const { isLoading, error, data } = useQuery({queryKey:['players'], queryFn:fetchPlayerslist});
 
   useEffect(() => {
     if (data) {
-      setAllPlayerslist(data);
+      setAllPlayerslist(data.filter((item) => playoffteams.includes(item.country)));
     }
   }, [data]); 
 
